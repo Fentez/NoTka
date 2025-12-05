@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="uk">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Вікі | NoTka</title>
+    <link rel="icon" type="image/png" href="favicon.png" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&family=Russo+One&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="grid"></div>
+
+    <div class="island-container reveal">
+      <nav class="island-nav">
+        <a href="index.html" class="nav-logo">
+          <img src="logo.png" alt="NoTka Logo" />
+        </a>
+
+        <div class="nav-links desktop-menu">
+          <a href="index.html" class="nav-link"
+            ><i class="fa-solid fa-house"></i> <span>Головна</span></a
+          >
+          <a href="index.html#news" class="nav-link"
+            ><i class="fa-solid fa-newspaper"></i> <span>Новини</span></a
+          >
+          <a href="rules.html" class="nav-link"
+            ><i class="fa-solid fa-book-open"></i> <span>Правила</span></a
+          >
+          <a href="#" class="nav-link active"
+            ><i class="fa-solid fa-circle-info"></i> <span>Вікі</span></a
+          >
+          <a
+            href="http://map.notka.pp.ua:25917"
+            target="_blank"
+            class="nav-link"
+            ><i class="fa-solid fa-map"></i> <span>Мапа</span></a
+          >
+        </div>
+
+        <a
+          href="https://discord.gg/y4vEfn7qS9"
+          target="_blank"
+          class="btn-discord-nav"
+        >
+          <i class="fa-brands fa-discord"></i> Discord
+        </a>
+
+        <div class="mobile-menu-btn" onclick="toggleMobileMenu()">
+          <i class="fa-solid fa-bars" id="menuIcon"></i>
+        </div>
+      </nav>
+
+      <div class="mobile-dropdown" id="mobileDropdown">
+        <a href="index.html" class="m-link" onclick="toggleMobileMenu()"
+          ><i class="fa-solid fa-house"></i> Головна</a
+        >
+        <a href="index.html#news" class="m-link" onclick="toggleMobileMenu()"
+          ><i class="fa-solid fa-newspaper"></i> Новини</a
+        >
+        <a href="rules.html" class="m-link" onclick="toggleMobileMenu()"
+          ><i class="fa-solid fa-book-open"></i> Правила</a
+        >
+        <a href="#" class="m-link highlight" onclick="toggleMobileMenu()"
+          ><i class="fa-solid fa-circle-info"></i> Вікі</a
+        >
+        <a href="http://map.notka.pp.ua:25917" target="_blank" class="m-link"
+          ><i class="fa-solid fa-map"></i> Мапа</a
+        >
+        <a
+          href="https://discord.gg/y4vEfn7qS9"
+          target="_blank"
+          class="m-link discord-mobile"
+          ><i class="fa-brands fa-discord"></i> Discord</a
+        >
+      </div>
+    </div>
+
+    <section class="hero small-hero">
+      <h1 class="big-title reveal">База Знань</h1>
+      <p class="subtitle reveal">
+        Все, що потрібно знати про механіки та світ NoTka.
+      </p>
+    </section>
+
+    <div class="content-container wiki-layout">
+      <aside class="wiki-sidebar reveal">
+        <div class="wiki-nav-title">Зміст</div>
+        <nav class="wiki-nav">
+          <a href="#start" class="wiki-link active">🚀 Як почати</a>
+          <a href="#voice" class="wiki-link">🎙️ Голосовий чат</a>
+          <a href="#world" class="wiki-link">🌍 Світ та Кордони</a>
+          <a href="#emotes" class="wiki-link">🎭 Емоції</a>
+          <a href="#economy" class="wiki-link">💰 Економіка</a>
+        </nav>
+      </aside>
+
+      <main class="wiki-content reveal">
+        <section id="start" class="wiki-section">
+          <h2>🚀 Як почати грати?</h2>
+          <p>Щоб потрапити на сервер, виконайте наступні кроки:</p>
+          <ol>
+            <li>
+              Перейдіть у наш
+              <a
+                href="https://discord.gg/y4vEfn7qS9"
+                target="_blank"
+                style="color: var(--b-light); text-decoration: underline"
+                >Discord сервер</a
+              >.
+            </li>
+            <li>Заповніть анкету для входу (вайтлист).</li>
+            <li>
+              Після прийняття анкети зайдіть на сервер за адресою:
+              <code>mc.notka.pp.ua</code>
+            </li>
+            <li>
+              Зареєструйтеся командою:
+              <div style="margin-top: 5px">
+                <code>/register пароль пароль</code>
+              </div>
+            </li>
+          </ol>
+
+          <div class="wiki-note">
+            <i class="fa-solid fa-star"></i>
+            <strong>Для ліцензії:</strong> Якщо у вас ліцензійний акаунт,
+            пропишіть команду <code>/premium</code>. Після цього вводити пароль
+            при вході більше не потрібно.
+          </div>
+
+          <p>Приємної гри!</p>
+        </section>
+
+        <section id="voice" class="wiki-section">
+          <h2>🎙️ Голосовий чат</h2>
+          <p>
+            На сервері встановлено плагін <strong>Simple Voice Chat</strong>. Це
+            дозволяє спілкуватися голосом з гравцями, які знаходяться поруч.
+          </p>
+          <p>
+            Щоб чути інших і говорити самому, вам потрібно встановити цей мод на
+            свій клієнт.
+          </p>
+
+          <a
+            href="https://modrinth.com/plugin/simple-voice-chat"
+            target="_blank"
+            class="modal-ip-btn"
+            style="
+              width: fit-content;
+              padding: 10px 25px;
+              text-decoration: none;
+              margin-bottom: 20px;
+            "
+          >
+            <i class="fa-solid fa-download"></i> Завантажити з Modrinth
+          </a>
+
+          <p>
+            Натисніть клавішу <code>V</code> (за замовчуванням), щоб відкрити
+            налаштування мікрофона.
+          </p>
+        </section>
+
+        <section id="world" class="wiki-section">
+          <h2>🌍 Світ та Кордони</h2>
+          <p>
+            Розмір світу обмежений для збереження продуктивності сервера та
+            зближення гравців для активнішої взаємодії.
+          </p>
+          <ul>
+            <li><strong>Звичайний світ:</strong> 8000 x 8000 блоків.</li>
+            <li><strong>Незер:</strong> 1000 x 1000 блоків.</li>
+            <li><strong>Енд:</strong> Поки що невідомо 🐉</li>
+          </ul>
+        </section>
+
+        <section id="emotes" class="wiki-section">
+          <h2>🎭 Емоції (Emotecraft)</h2>
+          <p>
+            Ви можете виражати свої емоції за допомогою анімацій! Для цього ми
+            використовуємо мод <strong>Emotecraft</strong>.
+          </p>
+
+          <img
+            src="emote.avif"
+            alt="Приклад емоцій"
+            style="
+              width: 100%;
+              border-radius: 15px;
+              margin-bottom: 20px;
+              border: 1px solid rgba(255, 255, 255, 0.1);
+            "
+          />
+
+          <p>
+            Встановіть мод, щоб бачити, як інші гравці махають рукою, танцюють
+            або плачуть, і використовувати емоції самому.
+          </p>
+
+          <a
+            href="https://modrinth.com/mod/emotecraft"
+            target="_blank"
+            class="modal-ip-btn"
+            style="
+              width: fit-content;
+              padding: 10px 25px;
+              text-decoration: none;
+            "
+          >
+            <i class="fa-solid fa-download"></i> Завантажити з Modrinth
+          </a>
+        </section>
+
+        <section id="economy" class="wiki-section">
+          <h2>💰 Економіка</h2>
+          <p>
+            На нашому сервері немає віртуальних грошей з повітря. Економіка
+            будується на <strong>фізичних предметах</strong>.
+          </p>
+          <p>
+            Ми цінуємо ванільний досвід, тому валютою будуть виступати цінні
+            ресурси (наприклад, алмази). Точна валюта поки що невідома.
+          </p>
+        </section>
+      </main>
+    </div>
+
+    <footer>
+      <p>&copy; 2024 NoTka Server. Всі права захищено.</p>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>

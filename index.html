@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="uk">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NoTka | Український Vanilla+</title>
+    <link rel="icon" type="image/png" href="favicon.png" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&family=Russo+One&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="slideshow-container">
+      <div
+        class="slide"
+        style="background-image: url('main-img/main-3.png')"
+      ></div>
+      <div
+        class="slide"
+        style="background-image: url('main-img/main-2.png')"
+      ></div>
+      <div
+        class="slide"
+        style="background-image: url('main-img/main-1.png')"
+      ></div>
+      <div class="slide-overlay"></div>
+    </div>
+
+    <div class="grid"></div>
+
+    <div class="island-container reveal">
+      <nav class="island-nav">
+        <a href="index.html" class="nav-logo">
+          <img src="logo.png" alt="NoTka Logo" />
+        </a>
+
+        <div class="nav-links desktop-menu">
+          <a href="#" class="nav-link active"
+            ><i class="fa-solid fa-house"></i> <span>Головна</span></a
+          >
+          <a href="#news" class="nav-link"
+            ><i class="fa-solid fa-newspaper"></i> <span>Новини</span></a
+          >
+          <a href="rules.html" class="nav-link"
+            ><i class="fa-solid fa-book-open"></i> <span>Правила</span></a
+          >
+          <a href="wiki.html" class="nav-link"
+            ><i class="fa-solid fa-circle-info"></i> <span>Вікі</span></a
+          >
+          <a
+            href="http://map.notka.pp.ua:25917"
+            target="_blank"
+            class="nav-link"
+            ><i class="fa-solid fa-map"></i> <span>Мапа</span></a
+          >
+        </div>
+
+        <a
+          href="https://discord.gg/y4vEfn7qS9"
+          target="_blank"
+          class="btn-discord-nav"
+        >
+          <i class="fa-brands fa-discord"></i> Discord
+        </a>
+
+        <div class="mobile-menu-btn" onclick="toggleMobileMenu()">
+          <i class="fa-solid fa-bars" id="menuIcon"></i>
+        </div>
+      </nav>
+
+      <div class="mobile-dropdown" id="mobileDropdown">
+        <a href="#" class="m-link" onclick="toggleMobileMenu()"
+          ><i class="fa-solid fa-house"></i> Головна</a
+        >
+        <a href="#news" class="m-link" onclick="toggleMobileMenu()"
+          ><i class="fa-solid fa-newspaper"></i> Новини</a
+        >
+        <a href="rules.html" class="m-link" onclick="toggleMobileMenu()"
+          ><i class="fa-solid fa-book-open"></i> Правила</a
+        >
+        <a href="wiki.html" class="m-link" onclick="toggleMobileMenu()"
+          ><i class="fa-solid fa-circle-info"></i> Вікі</a
+        >
+        <a href="http://map.notka.pp.ua:25917" target="_blank" class="m-link"
+          ><i class="fa-solid fa-map"></i> Мапа</a
+        >
+        <a
+          href="https://discord.gg/y4vEfn7qS9"
+          target="_blank"
+          class="m-link discord-mobile"
+          ><i class="fa-brands fa-discord"></i> Discord</a
+        >
+      </div>
+    </div>
+
+    <section class="hero">
+      <h1 class="big-title reveal">
+        <span class="t-no">No</span><span class="t-tka">Tka</span>
+      </h1>
+
+      <div class="hero-btns reveal">
+        <button class="btn-hero-play" onclick="openModal()">
+          <i class="fa-solid fa-play"></i> ГРАТИ ЗАРАЗ
+        </button>
+
+        <a
+          href="https://discord.gg/y4vEfn7qS9"
+          target="_blank"
+          class="btn-hero-discord"
+        >
+          <i class="fa-brands fa-discord"></i> Discord
+        </a>
+      </div>
+
+      <a href="#features" class="scroll-down-btn reveal">
+        <i class="fa-solid fa-chevron-down"></i>
+      </a>
+    </section>
+
+    <div id="features" class="features-row reveal">
+      <div class="f-card acc-pink">
+        <h3>
+          <i class="fa-solid fa-cube" style="color: var(--p-light)"></i>
+          Атмосфера
+        </h3>
+        <p>Чиста ванільна механіка з легкими візуальними доповненнями.</p>
+      </div>
+      <div class="f-card acc-purple">
+        <h3>
+          <i class="fa-solid fa-users" style="color: var(--p-dark)"></i>
+          Ком'юніті
+        </h3>
+        <p>Добра аудиторія, відсутність гріферів та токсичності.</p>
+      </div>
+      <div class="f-card acc-blue">
+        <h3>
+          <i class="fa-solid fa-microphone" style="color: var(--b-light)"></i>
+          Voice Chat
+        </h3>
+        <p>
+          Повне занурення завдяки голосовому чату. Спілкуйся з друзями прямо у
+          грі.
+        </p>
+      </div>
+    </div>
+
+    <div class="section-divider reveal"></div>
+
+    <div class="content-container" id="news">
+      <h2 class="section-title reveal">Важливо</h2>
+
+      <a href="news/Coming-Soon.html" class="important-card reveal">
+        <img src="news-1.png" alt="Старт розробки" class="card-image-large" />
+
+        <div class="imp-content">
+          <div class="imp-header">
+            <span class="badge" style="background: var(--b-light); color: black"
+              >Анонс</span
+            >
+            <p class="imp-date">05.12.2025</p>
+          </div>
+          <h2>Початок великої подорожі: Розробка стартувала!</h2>
+          <p>
+            Ми офіційно оголошуємо початок активної роботи над сервером NoTka...
+          </p>
+          <div class="read-more">
+            Читати далі <i class="fa-solid fa-arrow-right"></i>
+          </div>
+        </div>
+      </a>
+
+      <h2 class="section-title reveal">Останні Новини</h2>
+      <div class="news-grid">
+        <a href="news/Coming-Soon.html" class="news-item reveal">
+          <img src="news-1.png" alt="Розробка" class="card-image" />
+          <div class="news-content">
+            <div class="news-date">05.12.2025</div>
+            <h4>Розробка NoTka розпочалася</h4>
+            <p>Ми почали роботу над сервером. ;)</p>
+            <div class="read-more-small">
+              Читати далі <i class="fa-solid fa-arrow-right"></i>
+            </div>
+          </div>
+        </a>
+
+        <!-- <a href="#" class="news-item reveal">
+          <img
+            src="https://placehold.co/600x400/333/FFF?text=Dragon+Event"
+            alt="Івент"
+            class="card-image"
+          />
+          <div class="news-content">
+            <div class="news-date">01.12.2025</div>
+            <h4>Івент "Скарби Дракона"</h4>
+            <p>У цю суботу пройде івент з пошуку скарбів у Енді.</p>
+            <div class="read-more-small">
+              Читати далі <i class="fa-solid fa-arrow-right"></i>
+            </div>
+          </div>
+        </a>
+
+        <a href="#" class="news-item reveal">
+          <div class="news-content">
+            <div class="news-date">28.11.2025</div>
+            <h4>Оновлення правил</h4>
+            <p>
+              Внесено зміни до пункту 2.4 щодо використання редстоун механізмів.
+            </p>
+            <div class="read-more-small">
+              Читати далі <i class="fa-solid fa-arrow-right"></i>
+            </div>
+          </div>
+        </a> -->
+
+        <!-- <a href="#" class="news-item news-hidden">
+          <div class="news-content">
+            <div class="news-date">20.11.2025</div>
+            <h4>Знижки в магазині</h4>
+            <p>До кінця місяця діють знижки -20% на всі привілеї.</p>
+            <div class="read-more-small">
+              Читати далі <i class="fa-solid fa-arrow-right"></i>
+            </div>
+          </div>
+        </a> -->
+      </div>
+
+      <!-- <div class="center-btn reveal">
+        <button class="btn-load-more" id="loadMoreBtn">
+          <i class="fa-solid fa-clock-rotate-left"></i> Показати більше
+        </button>
+      </div> -->
+    </div>
+
+    <div id="playModal" class="modal-overlay">
+      <div class="modal-box">
+        <span class="close-modal" onclick="closeModal()"
+          ><i class="fa-solid fa-xmark"></i
+        ></span>
+        <h2 class="modal-title">Як приєднатися до NoTka</h2>
+        <div class="modal-steps">
+          <div class="step-item">
+            <div class="step-circle">1</div>
+            <div class="step-text">
+              <h4>Запустіть Minecraft</h4>
+              <p>
+                Потрібна версія Java Edition <strong>1.21.10</strong>. Ліцензія
+                не обов'язкова.
+              </p>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-circle">2</div>
+            <div class="step-text">
+              <h4>Заповніть анкету</h4>
+              <p>
+                Щоб потрапити на сервер, необхідно подати заявку в нашому
+                Discord:
+              </p>
+            </div>
+          </div>
+          <a
+            href="https://discord.gg/y4vEfn7qS9"
+            target="_blank"
+            class="modal-discord-btn"
+            ><i class="fa-brands fa-discord"></i> Перейти до Discord</a
+          >
+          <div class="step-item">
+            <div class="step-circle">3</div>
+            <div class="step-text">
+              <h4>Підключіться до сервера</h4>
+              <p>Використовуйте IP адресу для підключення:</p>
+            </div>
+          </div>
+          <button class="modal-ip-btn" onclick="copyIP()">
+            MC.NOTKA.PP.UA <i class="fa-regular fa-copy"></i>
+          </button>
+          <div class="step-item">
+            <div class="step-circle">4</div>
+            <div class="step-text">
+              <h4>Почніть подорож</h4>
+              <p>Вітаємо у світі таємниць та пригод! Приємної гри.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      <p>&copy; 2025 NoTka Server. Всі права захищено.</p>
+    </footer>
+
+    <div id="toast">
+      <i class="fa-solid fa-check"></i> IP адресу скопійовано!
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
