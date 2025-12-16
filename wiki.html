@@ -38,7 +38,7 @@
             ><i class="fa-solid fa-circle-info"></i> <span>Вікі</span></a
           >
           <a
-            href="http://map.notka.pp.ua:25917"
+            href="http://map.notka.pp.ua:25574"
             target="_blank"
             class="nav-link"
             ><i class="fa-solid fa-map"></i> <span>Мапа</span></a
@@ -71,7 +71,7 @@
         <a href="#" class="m-link highlight" onclick="toggleMobileMenu()"
           ><i class="fa-solid fa-circle-info"></i> Вікі</a
         >
-        <a href="http://map.notka.pp.ua:25917" target="_blank" class="m-link"
+        <a href="http://map.notka.pp.ua:25574" target="_blank" class="m-link"
           ><i class="fa-solid fa-map"></i> Мапа</a
         >
         <a
@@ -98,7 +98,9 @@
           <a href="#voice" class="wiki-link">🎙️ Голосовий чат</a>
           <a href="#world" class="wiki-link">🌍 Світ та Кордони</a>
           <a href="#emotes" class="wiki-link">🎭 Емоції</a>
-          <a href="#economy" class="wiki-link">💰 Економіка</a>
+          <a href="#map" class="wiki-link">🗺️ 3D Мапа</a>
+          <a href="#names" class="wiki-link">👤 Ніки гравців</a>
+          <a href="#sponsor" class="wiki-link">💎 Спонсорство</a>
         </nav>
       </aside>
 
@@ -172,15 +174,14 @@
 
         <section id="world" class="wiki-section">
           <h2>🌍 Світ та Кордони</h2>
+          <div class="rule-alert" style="margin-top: 15px">
+            <i class="fa-solid fa-lock"></i>
+            Увага! На старті сезону Незер (Пекло) та Енд будуть заблоковані.
+          </div>
           <p>
-            Розмір світу обмежений для збереження продуктивності сервера та
-            зближення гравців для активнішої взаємодії.
+            Розміри світів <strong>поки що невідомі</strong>. Слідкуйте за
+            новинами в Discord, щоб дізнатися деталі перед відкриттям.
           </p>
-          <ul>
-            <li><strong>Звичайний світ:</strong> 8000 x 8000 блоків.</li>
-            <li><strong>Незер:</strong> 1000 x 1000 блоків.</li>
-            <li><strong>Енд:</strong> Поки що невідомо 🐉</li>
-          </ul>
         </section>
 
         <section id="emotes" class="wiki-section">
@@ -221,16 +222,200 @@
           </a>
         </section>
 
-        <section id="economy" class="wiki-section">
-          <h2>💰 Економіка</h2>
+        <section id="map" class="wiki-section">
+          <h2>🗺️ 3D Мапа</h2>
           <p>
-            На нашому сервері немає віртуальних грошей з повітря. Економіка
-            будується на <strong>фізичних предметах</strong>.
+            На нашому сервері є інтерактивна веб-карта, де ви можете бачити світ
+            у реальному часі, знаходити свої споруди та спостерігати за іншими
+            гравцями (якщо вони не використовують режим скритності).
           </p>
+          <a
+            href="http://map.notka.pp.ua:25574"
+            target="_blank"
+            class="modal-ip-btn"
+            style="
+              width: fit-content;
+              padding: 10px 25px;
+              text-decoration: none;
+              background: linear-gradient(90deg, var(--p-dark), var(--b-dark));
+              color: white;
+              box-shadow: 0 5px 15px rgba(170, 0, 255, 0.3);
+            "
+          >
+            <i class="fa-solid fa-map"></i> Відкрити мапу
+          </a>
+        </section>
+
+        <section id="names" class="wiki-section">
+          <h2>👤 Нікнейми гравців</h2>
           <p>
-            Ми цінуємо ванільний досвід, тому валютою будуть виступати цінні
-            ресурси (наприклад, алмази). Точна валюта поки що невідома.
+            Для кращого занурення в ігровий процес ми відключили відображення
+            ніків над головами гравців.
           </p>
+          <div class="wiki-note">
+            <i class="fa-solid fa-eye"></i>
+            <strong>Як дізнатися нік?</strong> Просто натисніть
+            <strong>ПКМ</strong> (праву кнопку миші) по гравцю, і його ім'я
+            відобразиться внизу екрана (в ActionBar).
+          </div>
+          <p>Тепер впізнавати один одного стало трохи цікавіше!</p>
+        </section>
+
+        <section id="sponsor" class="wiki-section">
+          <h2>💎 СПОНСОРСЬКА ПІДПИСКА</h2>
+          <p>
+            Підтримайте розвиток нашого проєкту, придбавши спонсорську підписку!
+          </p>
+
+          <div
+            class="rule-alert"
+            style="
+              background: rgba(255, 215, 0, 0.1);
+              border-color: gold;
+              color: gold;
+            "
+          >
+            <i class="fa-solid fa-gift"></i>
+            <div>
+              <strong>АКЦІЯ НА ЧЕСТЬ ВІДКРИТТЯ!</strong><br />
+              Усі, хто придбає підписку до <strong>27.12.25</strong> (включно),
+              отримають її <strong>НАЗАВЖДИ!</strong>
+            </div>
+          </div>
+
+          <h3>Що ви отримаєте:</h3>
+          <ul class="sponsor-list">
+            <li>
+              <span>Окрема роль у Discord.</span>
+              <img
+                src="discord.png"
+                alt="Приклад ролі у Discord"
+                class="mini-screenshot"
+              />
+            </li>
+            <li>
+              <span>Префікс і колір, що виділяє вас у чаті та табі.</span>
+              <img
+                src="craft.png"
+                alt="Приклад префікса у чаті"
+                class="mini-screenshot"
+              />
+              <img
+                src="craft-tab.png"
+                alt="Приклад префікса у чаті"
+                class="mini-screenshot"
+              />
+            </li>
+            <li>
+              <strong>Розширені можливості у грі:</strong>
+              <ul>
+                <li>
+                  <code>/disc</code> — створюйте власні музичні платівки з URL.
+                </li>
+                <li>
+                  <span
+                    ><code>/rename</code> — підписуйте предмети будь-яким
+                    кольором або градієнтом.</span
+                  >
+                  <img
+                    src="rename.png"
+                    alt="Приклад команди rename"
+                    class="mini-screenshot"
+                  />
+                </li>
+                <li>
+                  <span
+                    ><code>/setlore</code> — додайте будь-який опис (лор) до
+                    предмета.</span
+                  >
+                  <img
+                    src="setlore.png"
+                    alt="Приклад команди setlore"
+                    class="mini-screenshot"
+                  />
+                </li>
+                <li>
+                  <code>/hat</code> — одягніть будь-який блок собі на голову.
+                </li>
+              </ul>
+            </li>
+          </ul>
+
+          <h3>Як придбати:</h3>
+          <ol>
+            <li>
+              Оберіть спосіб оплати:
+              <a
+                href="ПОСИЛАННЯ_НА_МОНО"
+                target="_blank"
+                style="
+                  color: var(--p-light);
+                  font-weight: bold;
+                  text-decoration: underline;
+                "
+                >Mono.банка</a
+              >
+              або
+              <a
+                href="ПОСИЛАННЯ_НА_DONATELLO"
+                target="_blank"
+                style="
+                  color: var(--b-light);
+                  font-weight: bold;
+                  text-decoration: underline;
+                "
+                >Donatello</a
+              >.
+            </li>
+            <li>
+              Надішліть суму не менше
+              <strong style="color: gold; font-size: 1.1em">99 ₴</strong>.
+            </li>
+            <li>
+              <strong>Обов'язково</strong> вкажіть у коментарі до платежу:
+              <ul style="margin-top: 5px">
+                <li>Ваш нікнейм у Discord.</li>
+                <li>Ваш нікнейм у грі.</li>
+                <li>Назву послуги (<strong>«Спонсор»</strong>).</li>
+              </ul>
+            </li>
+          </ol>
+
+          <div
+            style="display: flex; gap: 15px; flex-wrap: wrap; margin-top: 25px"
+          >
+            <a
+              href="https://send.monobank.ua/jar/cXUsMAJm7"
+              target="_blank"
+              class="modal-ip-btn"
+              style="
+                width: auto;
+                background: linear-gradient(145deg, #1a1a1a, #000000);
+                border: 1px solid #333;
+                color: white;
+                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+                text-decoration: none;
+              "
+            >
+              <i class="fa-solid fa-credit-card"></i> Mono.банка
+            </a>
+
+            <a
+              href="https://donatello.to/NoTka"
+              target="_blank"
+              class="modal-ip-btn"
+              style="
+                width: auto;
+                background: linear-gradient(145deg, #005bb5, #004488);
+                border: 1px solid #0066cc;
+                color: white;
+                box-shadow: 0 4px 10px rgba(0, 87, 181, 0.4);
+                text-decoration: none;
+              "
+            >
+              <i class="fa-solid fa-heart"></i> Donatello
+            </a>
+          </div>
         </section>
       </main>
     </div>
@@ -240,5 +425,22 @@
     </footer>
 
     <script src="script.js"></script>
+
+    <style>
+      .mini-screenshot {
+        display: block;
+        max-width: 100%;
+        width: 350px;
+        height: auto;
+        border-radius: 10px;
+        margin-top: 12px;
+        margin-bottom: 15px;
+        border: 2px solid rgba(255, 255, 255, 0.1);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+      }
+      .sponsor-list li {
+        margin-bottom: 10px;
+      }
+    </style>
   </body>
 </html>
