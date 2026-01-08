@@ -1,0 +1,965 @@
+/* =============================================================================
+   KASKAD OS // CORE STYLESHEET
+   VERSION: 10.0.4 ULTIMATE
+   AUTHOR: S_b0t@ge
+   TYPE: RETRO-CYBERPUNK TERMINAL SIMULATION
+=============================================================================
+*/
+
+/* =============================================================================
+   1. CSS VARIABLES & RESET
+=============================================================================
+*/
+:root {
+  /* --- COLOR PALETTE --- */
+  --color-bg: #020202;
+  --color-panel: rgba(0, 15, 0, 0.9);
+
+  /* Phosphor Colors */
+  --p-green: #33ff00; /* Standard Terminal */
+  --p-green-dim: #004d00; /* Dimmed Green */
+  --p-green-bright: #ccffcc; /* Highlight */
+
+  --p-amber: #ffb000; /* Warning */
+  --p-red: #ff3333; /* Error / Alert */
+  --p-cyan: #00ffff; /* System / Net */
+  --p-white: #ffffff; /* Pure White */
+
+  /* --- GLOW EFFECTS --- */
+  --glow-text: 0 0 4px var(--p-green), 0 0 10px rgba(51, 255, 0, 0.5);
+  --glow-alert: 0 0 5px var(--p-red), 0 0 15px rgba(255, 51, 51, 0.6);
+  --glow-warn: 0 0 5px var(--p-amber);
+  --glow-border: 0 0 8px var(--p-green-dim);
+
+  /* --- TYPOGRAPHY --- */
+  --font-term: "VT323", monospace;
+  --font-tech: "Share Tech Mono", monospace;
+  --font-size-base: 20px;
+  --line-height: 1.2;
+
+  /* --- UI DIMENSIONS --- */
+  --header-height: 40px;
+  --input-height: 50px;
+  --scanline-size: 3px;
+
+  /* --- ANIMATION SPEEDS --- */
+  --anim-fast: 0.1s;
+  --anim-med: 0.3s;
+  --anim-slow: 1s;
+}
+
+/* RESET */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  user-select: none; /* Prevent selection for realism */
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden; /* Prevent native scrolling, we use internal divs */
+  background-color: var(--color-bg);
+  color: var(--p-green);
+  font-family: var(--font-term);
+  font-size: var(--font-size-base);
+  -webkit-font-smoothing: none;
+  cursor: default;
+}
+
+/* Custom Scrollbar for Webkit */
+::-webkit-scrollbar {
+  width: 14px;
+  background: #000;
+}
+
+::-webkit-scrollbar-track {
+  background: #050505;
+  border-left: 1px solid var(--p-green-dim);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--p-green-dim);
+  border: 1px solid #000;
+  box-shadow: inset 1px 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--p-green);
+}
+
+/* =============================================================================
+   2. LAYER 1: BACKGROUND & MATRIX
+=============================================================================
+*/
+#bg-layer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+#matrix-canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  opacity: 0.15; /* Subtle background */
+}
+
+.noise-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+  opacity: 0.08;
+  pointer-events: none;
+  animation: noise-shift 0.5s infinite steps(5);
+}
+
+@keyframes noise-shift {
+  0% {
+    transform: translate(0, 0);
+  }
+  10% {
+    transform: translate(-5%, -5%);
+  }
+  20% {
+    transform: translate(-10%, 5%);
+  }
+  30% {
+    transform: translate(5%, -10%);
+  }
+  40% {
+    transform: translate(-5%, 15%);
+  }
+  50% {
+    transform: translate(-10%, 5%);
+  }
+  60% {
+    transform: translate(15%, 0);
+  }
+  70% {
+    transform: translate(0, 10%);
+  }
+  80% {
+    transform: translate(-15%, 0);
+  }
+  90% {
+    transform: translate(10%, 5%);
+  }
+  100% {
+    transform: translate(5%, 0);
+  }
+}
+
+/* =============================================================================
+   3. LAYER 2: CRT MONITOR EFFECTS
+=============================================================================
+*/
+#crt-layer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 9999; /* Always on top */
+  pointer-events: none; /* Let clicks pass through */
+}
+
+/* Scanlines */
+.scanlines {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0),
+    rgba(255, 255, 255, 0) 50%,
+    rgba(0, 0, 0, 0.3) 50%,
+    rgba(0, 0, 0, 0.3)
+  );
+  background-size: 100% 4px;
+  animation: scanline-scroll 10s linear infinite;
+  opacity: 0.7;
+}
+
+/* Vignette (Curved Screen Look) */
+.vignette {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(
+    circle,
+    rgba(0, 0, 0, 0) 50%,
+    rgba(0, 0, 0, 0.4) 85%,
+    rgba(0, 0, 0, 0.9) 100%
+  );
+}
+
+/* Screen Flicker (Old Monitor) */
+.screen-flicker {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(51, 255, 0, 0.02);
+  animation: flicker-anim 0.1s infinite;
+}
+
+/* Phosphor Glow (Bloom) */
+.phosphor-glow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.7);
+  mix-blend-mode: screen;
+}
+
+/* =============================================================================
+   4. LAYER 3: BOOT SCREEN (INTRO)
+=============================================================================
+*/
+#boot-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #000;
+  z-index: 5000;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start; /* Текст йде зверху вниз */
+  font-family: var(--font-tech);
+  color: var(--p-green);
+  cursor: none;
+  overflow-y: auto; /* Дозволяє скрол, якщо тексту багато */
+}
+
+.boot-content {
+  max-width: 800px; /* Обмежуємо ширину, щоб не розтягувалось на весь монітор */
+  width: 100%;
+  margin: 0 auto; /* Центруємо блок */
+}
+
+.boot-line {
+  margin-bottom: 5px;
+  font-size: 18px;
+  line-height: 1.4;
+  text-shadow: 0 0 5px var(--p-green-dim);
+  white-space: pre-wrap; /* Зберігає відступи */
+  animation: none; /* Прибираємо стару анімацію, JS робить це краще */
+}
+
+/* Specific boot styles */
+.progress-line {
+  color: var(--p-white);
+}
+.boot-line.warn {
+  color: var(--p-amber);
+  font-weight: bold;
+}
+.boot-line.sys {
+  color: var(--p-cyan);
+  margin-top: 20px;
+}
+.boot-line.blink {
+  animation: blink-fast 0.5s infinite step-end;
+  color: var(--p-white);
+  margin-top: 10px;
+}
+
+/* =============================================================================
+   5. LAYER 4: MAIN TERMINAL INTERFACE
+=============================================================================
+*/
+#terminal-wrapper {
+  position: relative;
+  z-index: 100;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  opacity: 0; /* Starts hidden */
+  transition: opacity 1s ease-in;
+  text-shadow: var(--glow-text);
+}
+
+#terminal-wrapper.visible {
+  opacity: 1;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* --- 5.1 HEADER --- */
+#sys-header {
+  height: var(--header-height);
+  border-bottom: 2px solid var(--p-green-dim);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 5px;
+  margin-bottom: 10px;
+  font-family: var(--font-tech);
+  letter-spacing: 1px;
+}
+
+.header-left,
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.sys-icon {
+  font-size: 1.2rem;
+  animation: blink-slow 2s infinite;
+}
+
+#sys-status {
+  font-size: 0.9rem;
+  color: var(--p-green-dim);
+}
+
+/* --- 5.2 OUTPUT AREA (MAIN) --- */
+#terminal-output {
+  flex-grow: 1;
+  overflow-y: auto;
+  padding-right: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+/* Standard Line Styles */
+.line {
+  display: block;
+  word-wrap: break-word;
+  white-space: pre-wrap;
+  animation: scan-print 0.1s forwards;
+}
+
+/* Text Colors & Types */
+.line.sys {
+  color: var(--p-cyan);
+}
+.line.err {
+  color: var(--p-red);
+  text-shadow: var(--glow-alert);
+}
+.line.warn {
+  color: var(--p-amber);
+  text-shadow: var(--glow-warn);
+}
+.line.dim {
+  color: var(--p-green-dim);
+  text-shadow: none;
+}
+.line.success {
+  color: var(--p-white);
+  font-weight: bold;
+  text-shadow: 0 0 8px #fff;
+}
+.line.info {
+  color: var(--p-green-bright);
+  border-left: 3px solid var(--p-green);
+  padding-left: 10px;
+}
+
+/* Link styling (simulated) */
+.line-link {
+  text-decoration: underline;
+  cursor: pointer;
+  color: var(--p-cyan);
+}
+.line-link:hover {
+  background: rgba(0, 255, 255, 0.2);
+}
+
+/* --- 5.3 INPUT BAR --- */
+#input-bar {
+  height: var(--input-height);
+  margin-top: 10px;
+  background: rgba(0, 20, 0, 0.6);
+  border: 1px solid var(--p-green-dim);
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+  box-shadow: 0 0 15px rgba(0, 50, 0, 0.2);
+}
+
+.prompt-wrapper {
+  display: flex;
+  align-items: center;
+  margin-right: 10px;
+  font-weight: bold;
+}
+
+#user-prompt {
+  color: var(--p-green);
+}
+#prompt-char {
+  color: var(--p-white);
+  margin-left: 2px;
+}
+
+/* Root prompt color change */
+body.root-mode #user-prompt {
+  color: var(--p-red);
+}
+body.root-mode #input-bar {
+  border-color: var(--p-red);
+}
+
+.input-wrapper {
+  flex-grow: 1;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+#cmd-input {
+  width: 100%;
+  background: transparent;
+  border: none;
+  color: var(--p-green-bright);
+  font-family: var(--font-term);
+  font-size: var(--font-size-base);
+  outline: none;
+  text-shadow: var(--glow-text);
+  caret-color: transparent; /* We use custom caret */
+}
+
+/* Custom Caret */
+.caret {
+  width: 10px;
+  height: 20px;
+  background-color: var(--p-green);
+  animation: blink-fast 1s infinite;
+  position: absolute;
+  pointer-events: none;
+  /* JS will move this if needed, or we rely on it being at end */
+  display: none; /* Only use if we hide native caret */
+}
+/* Actually, for simple terminal, native caret is fine but colored */
+#cmd-input {
+  caret-color: var(--p-green);
+}
+
+/* =============================================================================
+   6. LAYER 5: MINI-GAMES STYLING
+=============================================================================
+*/
+
+/* --- 6.1 GENERAL GAME CONTAINER --- */
+.game-container {
+  border: 2px solid var(--p-green);
+  background: rgba(0, 15, 0, 0.95);
+  padding: 20px;
+  margin: 20px 0;
+  width: 100%;
+  max-width: 600px;
+  align-self: center; /* Center in terminal output */
+  box-shadow: 0 0 20px rgba(51, 255, 0, 0.1);
+  font-family: var(--font-tech);
+  position: relative;
+  overflow: hidden;
+}
+
+.game-container::before {
+  content: "SYSTEM_PROCESS_ID: 0x4F92";
+  position: absolute;
+  top: 2px;
+  right: 5px;
+  font-size: 10px;
+  color: var(--p-green-dim);
+}
+
+.game-header {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px dashed var(--p-green-dim);
+  padding-bottom: 10px;
+  margin-bottom: 15px;
+}
+
+.game-title {
+  font-weight: bold;
+  color: var(--p-white);
+  animation: pulse 2s infinite;
+}
+.game-timer {
+  color: var(--p-amber);
+  font-weight: bold;
+}
+.game-attempts {
+  color: var(--p-red);
+  font-weight: bold;
+}
+
+.game-instruction {
+  text-align: center;
+  margin-bottom: 15px;
+  font-size: 0.9rem;
+}
+
+.game-footer {
+  margin-top: 15px;
+  border-top: 1px solid var(--p-green-dim);
+  padding-top: 5px;
+  font-size: 0.8rem;
+  color: var(--p-green-dim);
+  text-align: right;
+}
+
+/* --- 6.2 GAME: PORT SCANNER --- */
+.port-scanner .port-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4 columns */
+  gap: 10px;
+}
+
+.port-item {
+  height: 40px;
+  border: 1px solid var(--p-green-dim);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.9rem;
+  cursor: pointer;
+  background: rgba(0, 50, 0, 0.2);
+  transition: all 0.05s;
+  position: relative;
+}
+
+.port-item.locked {
+  color: var(--p-green-dim);
+}
+.port-item.locked::after {
+  content: "LOCKED";
+}
+
+.port-item.open {
+  background: var(--p-green);
+  color: #000;
+  box-shadow: 0 0 10px var(--p-green);
+  font-weight: bold;
+  border-color: #fff;
+  z-index: 2;
+}
+.port-item.open::after {
+  content: "OPEN";
+}
+
+.port-item:hover {
+  border-color: var(--p-white);
+}
+
+/* --- 6.3 GAME: DECRYPTOR --- */
+.decryptor .bar-container {
+  width: 100%;
+  margin: 20px 0;
+}
+
+.decryptor .bar-track {
+  width: 100%;
+  height: 40px;
+  border: 2px solid var(--p-green);
+  position: relative;
+  background: rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+}
+
+.decryptor .bar-target {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  background: rgba(51, 255, 0, 0.3);
+  border-left: 1px solid var(--p-green);
+  border-right: 1px solid var(--p-green);
+  z-index: 1;
+}
+
+.decryptor .bar-cursor {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: var(--p-red);
+  box-shadow: 0 0 10px var(--p-red);
+  left: 0;
+  z-index: 2;
+}
+
+.decryptor .bar-scale {
+  display: flex;
+  justify-content: space-between;
+  font-size: 10px;
+  color: var(--p-green-dim);
+  margin-top: 5px;
+}
+
+.decryptor .hex-stream {
+  font-family: monospace;
+  font-size: 12px;
+  color: var(--p-green-dim);
+  text-align: center;
+  opacity: 0.5;
+  animation: text-scramble 0.2s infinite;
+}
+
+/* --- 6.4 ASCII ART RENDERER --- */
+.ascii-container {
+  margin: 20px 0;
+  padding: 10px;
+  border: 1px dotted var(--p-green-dim);
+  background: rgba(0, 0, 0, 0.3);
+  width: fit-content;
+}
+
+.ascii-art {
+  font-family: monospace;
+  font-size: 14px;
+  line-height: 14px;
+  color: var(--p-white);
+  white-space: pre;
+}
+
+.ascii-caption {
+  margin-top: 5px;
+  font-size: 12px;
+  color: var(--p-amber);
+  text-align: center;
+}
+
+/* =============================================================================
+   7. KEYFRAME ANIMATIONS
+=============================================================================
+*/
+
+/* CRT Scanline Scroll */
+@keyframes scanline-scroll {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 0 100%;
+  }
+}
+
+/* Screen Flicker */
+@keyframes flicker-anim {
+  0% {
+    opacity: 0.97;
+  }
+  5% {
+    opacity: 0.9;
+  }
+  10% {
+    opacity: 0.97;
+  }
+  15% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.98;
+  }
+  55% {
+    opacity: 0.95;
+  }
+  60% {
+    opacity: 0.98;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* Blinking Cursor / Text */
+@keyframes blink-fast {
+  0%,
+  49% {
+    opacity: 1;
+  }
+  50%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes blink-slow {
+  0%,
+  49% {
+    opacity: 1;
+  }
+  50%,
+  100% {
+    opacity: 0.5;
+  }
+}
+
+/* Pulse effect for titles */
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    text-shadow: var(--glow-text);
+  }
+  50% {
+    transform: scale(1.02);
+    text-shadow: 0 0 8px var(--p-white);
+  }
+  100% {
+    transform: scale(1);
+    text-shadow: var(--glow-text);
+  }
+}
+
+/* Text Scramble (Simulated) */
+@keyframes text-scramble {
+  0% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 0.8;
+  }
+  100% {
+    opacity: 0.5;
+  }
+}
+
+/* Boot text appearing */
+@keyframes text-appear {
+  0% {
+    opacity: 0;
+    transform: translateX(-10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Glitch Effect applied to classes */
+.glitch {
+  position: relative;
+  animation: glitch-skew 1s infinite linear alternate-reverse;
+}
+
+.glitch::before {
+  content: attr(data-text);
+  position: absolute;
+  left: 0;
+  text-shadow: -2px 0 #ff00c1;
+  clip: rect(44px, 450px, 56px, 0);
+  animation: glitch-anim-1 5s infinite linear alternate-reverse;
+}
+
+.glitch::after {
+  content: attr(data-text);
+  position: absolute;
+  left: 0;
+  text-shadow: -2px 0 #00fff9;
+  clip: rect(44px, 450px, 56px, 0);
+  animation: glitch-anim-2 5s infinite linear alternate-reverse;
+}
+
+@keyframes glitch-anim-1 {
+  0% {
+    clip: rect(38px, 9999px, 80px, 0);
+  }
+  20% {
+    clip: rect(10px, 9999px, 86px, 0);
+  }
+  40% {
+    clip: rect(55px, 9999px, 16px, 0);
+  }
+  60% {
+    clip: rect(76px, 9999px, 3px, 0);
+  }
+  80% {
+    clip: rect(22px, 9999px, 96px, 0);
+  }
+  100% {
+    clip: rect(64px, 9999px, 59px, 0);
+  }
+}
+
+@keyframes glitch-anim-2 {
+  0% {
+    clip: rect(65px, 9999px, 100px, 0);
+  }
+  20% {
+    clip: rect(30px, 9999px, 14px, 0);
+  }
+  40% {
+    clip: rect(90px, 9999px, 85px, 0);
+  }
+  60% {
+    clip: rect(5px, 9999px, 32px, 0);
+  }
+  80% {
+    clip: rect(44px, 9999px, 20px, 0);
+  }
+  100% {
+    clip: rect(15px, 9999px, 60px, 0);
+  }
+}
+
+/* =============================================================================
+   8. MEDIA QUERIES (RESPONSIVE)
+=============================================================================
+*/
+
+/* Mobile Screens */
+@media (max-width: 600px) {
+  :root {
+    --font-size-base: 16px;
+  }
+
+  #boot-screen {
+    padding: 20px;
+  }
+
+  #input-bar {
+    flex-direction: column;
+    height: auto;
+    padding: 5px;
+    align-items: flex-start;
+  }
+
+  .prompt-wrapper {
+    margin-bottom: 5px;
+  }
+  .input-wrapper {
+    width: 100%;
+  }
+
+  .game-container {
+    padding: 10px;
+  }
+  .port-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* 4K Screens (High DPI) */
+@media (min-width: 2000px) {
+  :root {
+    --font-size-base: 24px;
+    --header-height: 60px;
+    --input-height: 70px;
+  }
+}
+
+/* --- GAME 2: MEMORY SEQUENCE --- */
+.seq-display {
+  background: rgba(0, 30, 0, 0.8);
+  border: 1px solid var(--p-green);
+  color: var(--p-green-bright);
+  padding: 15px;
+  text-align: center;
+  font-size: 1.5rem;
+  letter-spacing: 3px;
+  margin-bottom: 20px;
+  min-height: 50px;
+  text-shadow: 0 0 10px var(--p-green);
+}
+
+.seq-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+.seq-btn {
+  border: 1px solid var(--p-green-dim);
+  background: rgba(0, 50, 0, 0.2);
+  color: var(--p-green);
+  padding: 10px;
+  text-align: center;
+  cursor: pointer;
+  transition: 0.1s;
+}
+.seq-btn:hover {
+  background: var(--p-green-dim);
+  color: #fff;
+}
+.seq-btn.active {
+  background: var(--p-green);
+  color: #000;
+  box-shadow: 0 0 15px var(--p-green);
+}
+.seq-btn.wrong {
+  background: var(--p-red);
+  border-color: var(--p-red);
+}
+
+/* --- GAME 3: PIN BYPASS --- */
+.pin-display {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin: 30px 0;
+}
+
+.pin-digit {
+  width: 60px;
+  height: 80px;
+  border: 2px solid var(--p-green-dim);
+  background: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2.5rem;
+  font-family: var(--font-main);
+  color: var(--p-green-dim);
+}
+
+.pin-digit.current {
+  border-color: var(--p-white);
+  color: var(--p-white);
+  animation: flicker 0.1s infinite; /* Ефект швидкої зміни */
+}
+
+.pin-digit.locked {
+  border-color: var(--p-green);
+  color: var(--p-green);
+  background: rgba(51, 255, 0, 0.1);
+  box-shadow: 0 0 15px var(--p-green);
+  animation: none;
+}
+
+.pin-digit.target {
+  color: var(
+    --p-green-bright
+  ); /* Це колір правильної цифри, коли вона пролітає */
+}
+/* --- FIX FOR GAMES DISPLAY --- */
+.game-container {
+  display: block; /* Робить блок окремим елементом */
+  width: 100%; /* Розтягує на всю ширину */
+  clear: both; /* Забороняє обтікання текстом */
+  margin-top: 20px; /* Відступ зверху від старого тексту */
+  margin-bottom: 20px; /* Відступ знизу */
+  padding: 15px; /* Внутрішній відступ */
+  background: rgba(0, 20, 0, 0.5); /* Легкий фон, щоб виділити гру */
+  border: 1px solid var(--ui-border);
+  border-radius: 4px;
+  box-sizing: border-box; /* Щоб padding не ламав ширину */
+}

@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="uk">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+
+    <title>S_b0t@ge // KASKAD_OS_ROOT</title>
+    <meta
+      name="description"
+      content="System Access Terminal. Authorization Required."
+    />
+    <meta name="author" content="S_b0t@ge" />
+
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📟</text></svg>"
+    />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=VT323&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div id="bg-layer">
+      <canvas id="matrix-canvas"></canvas>
+      <div class="noise-overlay"></div>
+    </div>
+
+    <div id="crt-layer">
+      <div class="scanlines"></div>
+      <div class="vignette"></div>
+      <div class="screen-flicker"></div>
+      <div class="phosphor-glow"></div>
+    </div>
+
+    <div id="boot-screen">
+      <div class="boot-content" id="boot-log">
+        <div class="boot-line">KASKAD BIOS v10.0.4 (c) 2026 System Corp.</div>
+        <div class="boot-line">CPU: QUANTUM CORE @ 404 THz</div>
+        <div class="boot-line">Checking Memory...</div>
+        <div class="boot-line">> Bank 0: 512TB OK</div>
+        <div class="boot-line">> Bank 1: 512TB OK</div>
+        <div class="boot-line">> Bank 2: [CORRUPTED SECTOR DETECTED]</div>
+        <div class="boot-line">> Bank 3: 512TB OK</div>
+        <div class="boot-line">Memory Test: PASSED (with warnings)</div>
+        <br />
+        <div class="boot-line">
+          Detecting Primary Master... S_b0t@ge_DRIVE_01
+        </div>
+        <div class="boot-line">
+          Detecting Secondary Slave... NODE_NETHER_LINK
+        </div>
+        <br />
+        <div class="boot-line">Loading KERNEL...</div>
+        <div class="boot-line progress-line">[####################] 100%</div>
+        <div class="boot-line">Mounting Virtual Filesystem (VFS)... OK</div>
+        <div class="boot-line">Initializing Network Drivers...</div>
+        <div class="boot-line">> eth0: LINK UP</div>
+        <div class="boot-line">> wlan0: SEARCHING...</div>
+        <div class="boot-line">> tun0: VPN TUNNEL ESTABLISHED (IP: HIDDEN)</div>
+        <br />
+        <div class="boot-line warn">
+          WARNING: FIREWALL INTEGRITY COMPROMISED
+        </div>
+        <div class="boot-line warn">WARNING: UNKNOWN USER DETECTED</div>
+        <div class="boot-line">Loading User Interface...</div>
+        <div class="boot-line">Starting Shell...</div>
+        <br />
+        <div class="boot-line sys">SYSTEM READY.</div>
+        <div class="boot-line blink">PRESS ANY KEY TO ENTER TERMINAL...</div>
+      </div>
+    </div>
+
+    <div id="terminal-wrapper" class="hidden">
+      <header id="sys-header">
+        <div class="header-left">
+          <span class="sys-icon">█</span>
+          <span id="sys-name">KASKAD OS</span>
+        </div>
+        <div class="header-center">
+          <span id="sys-status">[SECURE CONNECTION]</span>
+        </div>
+        <div class="header-right">
+          <span id="sys-clock">00:00:00</span>
+        </div>
+      </header>
+
+      <main id="terminal-output"></main>
+
+      <footer id="input-bar">
+        <div class="prompt-wrapper">
+          <span id="user-prompt">guest@gateway</span>
+          <span id="prompt-char">:$</span>
+        </div>
+        <div class="input-wrapper">
+          <input
+            type="text"
+            id="cmd-input"
+            autocomplete="off"
+            spellcheck="false"
+            autofocus
+          />
+          <div class="caret"></div>
+        </div>
+      </footer>
+    </div>
+
+    <template id="tpl-port-scanner">
+      <div class="game-container port-scanner">
+        <div class="game-header">
+          <span class="game-title">>> FIREWALL BREACH PROTOCOL <<</span>
+          <span class="game-timer"
+            >TIME: <span class="timer-val">10</span>s</span
+          >
+        </div>
+        <div class="game-instruction dim">
+          INSTRUCTION: CLICK THE [OPEN] PORT
+        </div>
+
+        <div class="port-grid"></div>
+
+        <div class="game-footer">STATUS: SCANNING NETWORK...</div>
+      </div>
+    </template>
+
+    <template id="tpl-sequence">
+      <div class="game-container sequence-game">
+        <div class="game-header">
+          <span class="game-title">>> PATTERN RECOGNITION <<</span>
+          <span class="game-timer">MEMORY SYNC...</span>
+        </div>
+
+        <div class="seq-display">WAITING FOR SIGNAL...</div>
+
+        <div class="seq-grid"></div>
+
+        <div class="game-footer">INSTRUCTION: REPEAT THE HEX SEQUENCE</div>
+      </div>
+    </template>
+
+    <template id="tpl-pin-bypass">
+      <div class="game-container pin-game">
+        <div class="game-header">
+          <span class="game-title">>> SECURITY BYPASS <<</span>
+          <span class="game-timer"
+            >LOCKS: <span class="locks-left">4</span></span
+          >
+        </div>
+
+        <div class="pin-display">
+          <div class="pin-digit" id="d0">0</div>
+          <div class="pin-digit" id="d1">0</div>
+          <div class="pin-digit" id="d2">0</div>
+          <div class="pin-digit" id="d3">0</div>
+        </div>
+
+        <div class="game-instruction dim" style="margin-top: 20px">
+          PRESS [SPACE] TO LOCK THE GREEN DIGIT
+        </div>
+      </div>
+    </template>
+
+    <template id="tpl-ascii-img">
+      <div class="ascii-container">
+        <pre class="ascii-art"></pre>
+        <div class="ascii-caption"></div>
+      </div>
+    </template>
+
+    <div id="audio-preload" style="display: none"></div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
